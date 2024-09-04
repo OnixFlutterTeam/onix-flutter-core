@@ -1,7 +1,3 @@
 library onix_flutter_core;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:onix_flutter_core/core/arch/bloc/base_bloc.dart';
