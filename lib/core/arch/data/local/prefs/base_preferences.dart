@@ -18,6 +18,9 @@ class BasePreferences {
       case const (int):
         final value = prefs.getInt(key) as T?;
         result = value ?? defaultValue;
+      case const (List<String>):
+        final value = prefs.getStringList(key) as T?;
+        result = value ?? defaultValue;
       default:
         return defaultValue;
     }
@@ -35,6 +38,8 @@ class BasePreferences {
         await prefs.setDouble(key, value as double);
       case const (int):
         await prefs.setInt(key, value as int);
+      case const (List<String>):
+        await prefs.setStringList(key, value as List<String>);
     }
   }
 
