@@ -1,7 +1,7 @@
 name: onix_flutter_core
 description: "Core package"
 version: 0.0.1
-#homepage:
+repository: https://github.com/OnixFlutterTeam/onix-flutter-core
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
