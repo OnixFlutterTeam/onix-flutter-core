@@ -61,11 +61,13 @@ abstract class BaseState<S, B extends BaseBloc<dynamic, S, SR>, SR,
 
   void onBlocCreated(BuildContext context, B bloc) {
     bloc.progressStream.listen((event) async {
-      if (event is DefaultProgressState) {
-        if (event.showProgress) {
-          context.loaderOverlay.show();
-        } else {
-          context.loaderOverlay.hide();
+      if(context.mounted){
+        if (event is DefaultProgressState) {
+          if (event.showProgress) {
+            context.loaderOverlay.show();
+          } else {
+            context.loaderOverlay.hide();
+          }
         }
       }
     });

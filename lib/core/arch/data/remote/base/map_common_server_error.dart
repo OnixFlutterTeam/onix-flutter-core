@@ -1,8 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:onix_flutter_core/core/arch/domain/entity/common/data_response.dart';
 import 'package:onix_flutter_core/core/arch/domain/entity/failure/networking/api_failure.dart';
 import 'package:onix_flutter_core/core/arch/domain/entity/failure/networking/canceled_request_failure.dart';
 import 'package:onix_flutter_core/core/arch/domain/entity/failure/failure.dart';
-import 'package:onix_flutter_core/core/arch/logger/app_logger_impl.dart';
 
 class MapCommonServerError {
   static Failure getServerFailureDetails<T>(
@@ -28,7 +28,11 @@ class MapCommonServerError {
         orElse: ApiUnknownFailure.new,
       );
     } catch (e, trace) {
-      logger.crash(reason: 'Mapping Error Failed', error: e, stackTrace: trace);
+      if(kDebugMode){
+        print('MapCommonServerError::getServerFailureDetails');
+        print(e);
+        print(trace);
+      }
       return ApiExceptionFailure(message: e.toString());
     }
   }

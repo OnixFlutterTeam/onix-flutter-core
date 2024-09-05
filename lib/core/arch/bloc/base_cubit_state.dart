@@ -61,11 +61,13 @@ abstract class BaseCubitState<S, C extends BaseCubit<S, SR>, SR,
 
   void onCubitCreated(BuildContext context, C cubit) {
     cubit.progressStream.listen((event) async {
-      if (event is DefaultProgressState) {
-        if (event.showProgress) {
-          context.loaderOverlay.show();
-        } else {
-          context.loaderOverlay.hide();
+      if (context.mounted) {
+        if (event is DefaultProgressState) {
+          if (event.showProgress) {
+            context.loaderOverlay.show();
+          } else {
+            context.loaderOverlay.hide();
+          }
         }
       }
     });

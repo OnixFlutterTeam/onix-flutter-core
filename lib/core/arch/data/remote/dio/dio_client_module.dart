@@ -15,10 +15,11 @@ abstract class DioClientModule {
           baseUrl: params.baseUrl,
           connectTimeout: Duration(milliseconds: params.defaultConnectTimeout),
           receiveTimeout: Duration(milliseconds: params.defaultReceiveTimeout),
-          headers: {
-            BaseApiClient.kAcceptHeader: BaseApiClient.kJsonPrefix,
-            BaseApiClient.kContentTypeHeader: BaseApiClient.kJsonPrefix,
-          },
+          headers: params.headers ??
+              {
+                BaseApiClient.kAcceptHeader: BaseApiClient.kJsonPrefix,
+                BaseApiClient.kContentTypeHeader: BaseApiClient.kJsonPrefix,
+              },
         ),
       );
 

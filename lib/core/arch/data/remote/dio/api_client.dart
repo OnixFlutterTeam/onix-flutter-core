@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:onix_flutter_core/core/arch/data/remote/base/base_api_client.dart';
 import 'package:onix_flutter_core/core/arch/data/remote/dio/interceptor/cache_interceptor.dart';
-import 'package:onix_flutter_core/core/arch/logger/app_logger_impl.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -45,26 +44,24 @@ class ApiClient implements BaseApiClient<Dio> {
 
   @override
   void attachInterceptors() {
-    for (final interceptor in _interceptors) {
-      client.interceptors.remove(interceptor);
-      client.interceptors.add(interceptor);
+    if(_interceptors.isNotEmpty){
+      client.interceptors.clear();
+      client.interceptors.addAll(_interceptors);
     }
     if (_cacheInterceptor != null) {
-      _attachCacheInterceptor();
+      _reAttachCacheInterceptor();
     }
   }
 
   @override
   void attachCacheInterceptor(CacheInterceptor cacheInterceptor) {
     _cacheInterceptor = cacheInterceptor;
-    _attachCacheInterceptor();
+    _reAttachCacheInterceptor();
   }
 
   @override
   void deAttachInterceptors() {
-    for (final interceptor in _interceptors) {
-      client.interceptors.remove(interceptor);
-    }
+    client.interceptors.clear();
     if (_cacheInterceptor != null) {
       clearCache();
     }
@@ -83,7 +80,6 @@ class ApiClient implements BaseApiClient<Dio> {
         return client;
       },
     );
-    logger.d('CharlesProxyEnabled');
   }
 
   CachePolicy getCachePolicy({required bool forceRefresh}) =>
@@ -91,16 +87,14 @@ class ApiClient implements BaseApiClient<Dio> {
       CachePolicy.noCache;
 
   Future<void> clearCache() async {
-    logger.d('clearCache');
     await _cacheInterceptor?.clearCache();
-    await _attachCacheInterceptor();
+    await _reAttachCacheInterceptor();
   }
 
   String customCacheKeyBuilder(RequestOptions request) =>
       _cacheInterceptor?.customCacheKeyBuilder(request) ?? '';
 
-  Future<void> _attachCacheInterceptor() async {
-    logger.d('attachCacheInterceptor');
+  Future<void> _reAttachCacheInterceptor() async {
     _cacheInterceptor?.deAttachInterceptor();
     await _cacheInterceptor?.attachCacheInterceptor();
   }

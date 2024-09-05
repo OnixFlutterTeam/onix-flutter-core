@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:onix_flutter_core/core/arch/data/remote/base/http_status.dart';
 import 'package:onix_flutter_core/core/arch/data/remote/dio/dio_request_processor/dio_request_processor.dart';
 import 'package:onix_flutter_core/core/arch/data/remote/error/dio_error_processor.dart';
 import 'package:onix_flutter_core/core/arch/domain/entity/common/data_response.dart';
-import 'package:onix_flutter_core/core/arch/logger/app_logger_impl.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:retry/retry.dart';
 
@@ -68,13 +67,17 @@ class DioRequestProcessorImpl implements DioRequestProcessor {
       if(e.type == DioExceptionType.cancel) {
         return const DataResponse.canceledRequest();
       }
-      logger.crash(reason: 'onDioError', error: e, stackTrace: trace);
+
       return _errorProcessor.processError(
         e,
         onCustomError: onCustomError,
       );
     } catch (e, trace) {
-      logger.crash(reason: 'onDioCommonError', error: e, stackTrace: trace);
+      if(kDebugMode){
+        print('onDioCommonError::DioRequestProcessorImpl');
+        print(e);
+        print(trace);
+      }
       return DataResponse.undefinedError(e);
     }
   }
