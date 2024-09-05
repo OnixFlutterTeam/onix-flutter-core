@@ -30,7 +30,7 @@ dependencies:
   path_provider: ^2.1.4
   pretty_dio_logger: ^1.4.0
   retry: ^3.1.2
-  shared_preferences: 2.3.1
+  shared_preferences: 2.2.3
   uuid: ^4.5.0
 
 dev_dependencies:
