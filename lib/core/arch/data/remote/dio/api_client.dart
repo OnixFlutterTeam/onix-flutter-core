@@ -10,7 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiClient implements BaseApiClient<Dio> {
-  final List<InterceptorsWrapper> _interceptors;
+  final List<Interceptor> _interceptors;
 
   CacheInterceptor? _cacheInterceptor;
 
@@ -21,7 +21,7 @@ class ApiClient implements BaseApiClient<Dio> {
 
   ApiClient({
     required BaseOptions options,
-    List<InterceptorsWrapper> interceptors = const [],
+    List<Interceptor> interceptors = const [],
   }) : _interceptors = interceptors {
     client = Dio(options);
     client.transformer = BackgroundTransformer();

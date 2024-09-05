@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class ApiClientParams {
   final String baseUrl;
-  final List<InterceptorsWrapper> interceptors;
+  final List<Interceptor> interceptors;
   final int defaultConnectTimeout;
   final int defaultReceiveTimeout;
 
