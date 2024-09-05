@@ -1,3 +1,5 @@
+import 'package:onix_flutter_core/core/arch/data/remote/dio/interceptor/cache_interceptor.dart';
+
 abstract class BaseApiClient<T> {
   static const String kAuthHeader = 'Authorization';
   static const String kAuthPrefix = 'Bearer ';
@@ -11,6 +13,8 @@ abstract class BaseApiClient<T> {
   late T client;
 
   void attachInterceptors();
+
+  void attachCacheInterceptor(CacheInterceptor cacheInterceptor);
 
   void deAttachInterceptors();
 
