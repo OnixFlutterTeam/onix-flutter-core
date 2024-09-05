@@ -1,44 +1,35 @@
-import 'package:onix_flutter_core/core/arch/data/remote/error/default_api_error.dart';
 import 'package:onix_flutter_core/core/arch/domain/entity/common/data_response.dart';
-import 'package:onix_flutter_core/core/arch/domain/entity/failure/api_failure.dart';
-import 'package:onix_flutter_core/core/arch/domain/entity/failure/canceled_request_failure.dart';
+import 'package:onix_flutter_core/core/arch/domain/entity/failure/networking/api_failure.dart';
+import 'package:onix_flutter_core/core/arch/domain/entity/failure/networking/canceled_request_failure.dart';
 import 'package:onix_flutter_core/core/arch/domain/entity/failure/failure.dart';
 import 'package:onix_flutter_core/core/arch/logger/app_logger_impl.dart';
 
 class MapCommonServerError {
   static Failure getServerFailureDetails<T>(
     DataResponse<T> failure,
+    Function(dynamic, int?)? onApiFailure,
   ) {
     try {
       return failure.maybeWhen(
-        undefinedError: (error, statusCode) => ApiFailure(
-          ServerFailure.unknown,
+        undefinedError: (error, statusCode) => ApiUndefinedFailure(
           statusCode: statusCode,
           message: error.toString(),
         ),
-        apiError: _getResponseError,
-        notConnected: () => ApiFailure(ServerFailure.noNetwork),
-        unauthorized: () => ApiFailure(ServerFailure.unAuthorized),
-        tooManyRequests: () => ApiFailure(ServerFailure.tooManyRequests),
-        canceledRequest: () => const CanceledRequestFailure(),
-        orElse: () => ApiFailure(ServerFailure.unknown),
+        apiError: (error, statusCode) => onApiFailure != null
+            ? onApiFailure(error, statusCode)?.call
+            : ApiExceptionFailure(
+                message:
+                    'MapCommonServerError::Default error not defined properly.',
+              ),
+        notConnected: ConnectionFailure.new,
+        unauthorized: ApiUnauthorizedFailure.new,
+        tooManyRequests: ApiTooManyRequestsFailure.new,
+        canceledRequest: CanceledRequestFailure.new,
+        orElse: ApiUnknownFailure.new,
       );
     } catch (e, trace) {
       logger.crash(reason: 'Mapping Error Failed', error: e, stackTrace: trace);
-      return ApiFailure(ServerFailure.exception, message: e.toString());
+      return ApiExceptionFailure(message: e.toString());
     }
-  }
-
-  static ApiFailure _getResponseError(customError, int? statusCode) {
-    if (customError is DefaultApiError) {
-      return ApiFailure(
-        ServerFailure.response,
-        message: customError.name,
-        statusCode: statusCode,
-      );
-    }
-    //TODO process other error types and provide results
-    //TODO also add new error types to DataResponse if needed
-    return ApiFailure(ServerFailure.response);
   }
 }
