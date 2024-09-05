@@ -26,6 +26,7 @@ class ApiClient implements BaseApiClient<Dio> {
     client = Dio(options);
     client.transformer = BackgroundTransformer();
     attachLoggerInterceptor();
+    attachInterceptors();
   }
 
   @override
