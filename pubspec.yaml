@@ -4,8 +4,8 @@ version: 0.0.1
 repository: https://github.com/OnixFlutterTeam/onix-flutter-core
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
-  flutter: ">=3.17.0"
+  sdk: '>=3.2.0 <4.0.0'
+  flutter: ">=3.14.0"
 
 dependencies:
   connectivity_plus: ^6.0.5
@@ -26,12 +26,11 @@ dependencies:
   retry: ^3.1.2
   shared_preferences: ^2.2.3
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  build_runner: ^2.4.12
+  build_runner: ^2.4.9
   freezed: ^2.5.7
   json_serializable: ^6.8.0
 
