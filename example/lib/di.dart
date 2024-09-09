@@ -1,3 +1,4 @@
+import 'package:example/base_api_client_example/data/log_interceptor.dart';
 import 'package:example/base_bloc_example/bloc/base_bloc_example_screen_bloc.dart';
 import 'package:example/base_cubit_example/cubit/base_cubit_example_screen_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -29,6 +30,7 @@ void initializeDi(GetIt getIt) {
         baseUrl: 'https://jsonplaceholder.typicode.com/',
         defaultConnectTimeout: 5000,
         defaultReceiveTimeout: 5000,
+        interceptors: [LogInterceptor()],
       ),
     ),
     instanceName: 'apiInstanceName',
