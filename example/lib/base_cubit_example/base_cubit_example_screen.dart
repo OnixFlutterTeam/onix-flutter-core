@@ -1,18 +1,21 @@
-import 'package:example/base_bloc_example/bloc/base_bloc_example_screen_bloc.dart';
+import 'package:example/base_cubit_example/cubit/base_cubit_example_screen_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:onix_flutter_core/core/arch/bloc/base_bloc_state.dart';
+import 'package:onix_flutter_core/core/arch/bloc/base_cubit_state.dart';
 
-class BaseBlocExampleScreen extends StatefulWidget {
-  const BaseBlocExampleScreen({super.key, required this.title});
+class BaseCubitExampleScreen extends StatefulWidget {
+  const BaseCubitExampleScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<BaseBlocExampleScreen> createState() => _BaseBlocExampleScreenState();
+  State<BaseCubitExampleScreen> createState() => _BaseCubitExampleScreenState();
 }
 
-class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
-    BaseBlocExampleScreenBloc, BaseBlocExampleScreenSR, BaseBlocExampleScreen> {
+class _BaseCubitExampleScreenState extends BaseCubitState<
+    BaseCubitExampleScreenState,
+    BaseCubitExampleScreenCubit,
+    BaseCubitExampleScreenSR,
+    BaseCubitExampleScreen> {
   @override
   Widget buildWidget(BuildContext context) {
     return srObserver(
@@ -32,7 +35,7 @@ class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
               ),
               blocBuilder(builder: (context, state) {
                 return Text(
-                  '${state is BaseBlocExampleScreenData ? state.counter : 0}',
+                  '${state is BaseCubitExampleScreenData ? state.counter : 0}',
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
               }),
@@ -43,15 +46,14 @@ class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              onPressed: () =>
-                  blocOf(context).add(BaseBlocExampleScreenEventOnIncrement()),
+              onPressed: () => cubitOf(context).increment(),
               tooltip: 'Increment',
               child: const Icon(Icons.add),
             ),
             const SizedBox(width: 16),
             FloatingActionButton(
-              onPressed: () => blocOf(context)
-                  .addSr(BaseBlocExampleScreenSRShowDialog('Hello')),
+              onPressed: () => cubitOf(context)
+                  .addSr(BaseCubitExampleScreenSRShowDialog('Hello')),
               tooltip: 'Show dialog',
               child: const Icon(Icons.message),
             ),
@@ -61,13 +63,13 @@ class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
     );
   }
 
-  void _onSR(BuildContext context, BaseBlocExampleScreenSR sr) {
-    if (sr is BaseBlocExampleScreenSRShowDialog) {
+  void _onSR(BuildContext context, BaseCubitExampleScreenSR sr) {
+    if (sr is BaseCubitExampleScreenSRShowDialog) {
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Bloc dialog'),
+            title: const Text('Cubit dialog'),
             content: Text(sr.message),
             actions: <Widget>[
               TextButton(
