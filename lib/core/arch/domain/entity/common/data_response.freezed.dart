@@ -103,6 +103,9 @@ class _$DataResponseCopyWithImpl<T, $Res, $Val extends DataResponse<T>>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -122,6 +125,8 @@ class __$$DataResponseSuccessImplCopyWithImpl<T, $Res>
       $Res Function(_$DataResponseSuccessImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -161,7 +166,9 @@ class _$DataResponseSuccessImpl<T> extends _DataResponseSuccess<T> {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DataResponseSuccessImplCopyWith<T, _$DataResponseSuccessImpl<T>>
@@ -268,7 +275,10 @@ abstract class _DataResponseSuccess<T> extends DataResponse<T> {
   const _DataResponseSuccess._() : super._();
 
   T get data;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DataResponseSuccessImplCopyWith<T, _$DataResponseSuccessImpl<T>>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -290,6 +300,8 @@ class __$$UndefinedErrorImplCopyWithImpl<T, $Res>
       $Res Function(_$UndefinedErrorImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -336,7 +348,9 @@ class _$UndefinedErrorImpl<T> extends _UndefinedError<T> {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(errorObject), statusCode);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UndefinedErrorImplCopyWith<T, _$UndefinedErrorImpl<T>> get copyWith =>
@@ -444,7 +458,10 @@ abstract class _UndefinedError<T> extends DataResponse<T> {
 
   Object? get errorObject;
   int? get statusCode;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UndefinedErrorImplCopyWith<T, _$UndefinedErrorImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -466,6 +483,8 @@ class __$$ApiErrorImplCopyWithImpl<T, $Res>
       _$ApiErrorImpl<T> _value, $Res Function(_$ApiErrorImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -511,7 +530,9 @@ class _$ApiErrorImpl<T> extends _ApiError<T> {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(error), statusCode);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ApiErrorImplCopyWith<T, _$ApiErrorImpl<T>> get copyWith =>
@@ -618,7 +639,10 @@ abstract class _ApiError<T> extends DataResponse<T> {
 
   dynamic get error;
   int? get statusCode;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiErrorImplCopyWith<T, _$ApiErrorImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -638,6 +662,9 @@ class __$$NoInternetConnectionImplCopyWithImpl<T, $Res>
   __$$NoInternetConnectionImplCopyWithImpl(_$NoInternetConnectionImpl<T> _value,
       $Res Function(_$NoInternetConnectionImpl<T>) _then)
       : super(_value, _then);
+
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -773,6 +800,9 @@ class __$$UnauthorizedImplCopyWithImpl<T, $Res>
   __$$UnauthorizedImplCopyWithImpl(
       _$UnauthorizedImpl<T> _value, $Res Function(_$UnauthorizedImpl<T>) _then)
       : super(_value, _then);
+
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -907,6 +937,9 @@ class __$$TooManyRequestsImplCopyWithImpl<T, $Res>
   __$$TooManyRequestsImplCopyWithImpl(_$TooManyRequestsImpl<T> _value,
       $Res Function(_$TooManyRequestsImpl<T>) _then)
       : super(_value, _then);
+
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1041,6 +1074,9 @@ class __$$CanceledRequestImplCopyWithImpl<T, $Res>
   __$$CanceledRequestImplCopyWithImpl(_$CanceledRequestImpl<T> _value,
       $Res Function(_$CanceledRequestImpl<T>) _then)
       : super(_value, _then);
+
+  /// Create a copy of DataResponse
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
