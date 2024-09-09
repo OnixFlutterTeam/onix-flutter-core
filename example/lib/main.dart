@@ -1,12 +1,14 @@
+import 'package:example/base_bloc_example/bloc/base_bloc_example_screen_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:onix_flutter_core/core/arch/bloc/base_bloc.dart';
-import 'package:onix_flutter_core/core/arch/bloc/base_bloc_state.dart';
+
+import 'base_bloc_example/base_bloc_example_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  GetIt.I.registerFactory<HomePageBloc>(HomePageBloc.new);
+  GetIt.I.registerFactory<BaseBlocExampleScreenBloc>(
+      BaseBlocExampleScreenBloc.new);
 
   runApp(const MyApp());
 }
@@ -17,90 +19,43 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyHomePage(),
+        '/base_bloc_example': (context) =>
+            const BaseBlocExampleScreen(title: 'Base BLoC Example'),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState
-    extends BaseState<HomePageState, HomePageBloc, HomePageSR, MyHomePage> {
-  @override
-  Widget buildWidget(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text('Onix Flutter Core Examples'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            blocBuilder(builder: (context, state) {
-              return Text(
-                '${state is HomePageData ? state.counter : 0}',
-                style: Theme.of(context).textTheme.headlineMedium,
-              );
-            }),
+            ElevatedButton(onPressed: () {}, child: const Text('Base Cubit')),
+            const SizedBox(height: 16),
+            ElevatedButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, '/base_bloc_example'),
+                child: const Text('Base BLoC')),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => blocOf(context).add(HomePageEventOnIncrement()),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
   }
-}
-
-class HomePageBloc extends BaseBloc<HomePageEvent, HomePageState, HomePageSR> {
-  HomePageBloc() : super(HomePageInitial()) {
-    on<HomePageEventOnIncrement>((event, emit) {
-      int counter = state is HomePageData ? (state as HomePageData).counter : 0;
-
-      emit(HomePageData(counter + 1));
-    });
-  }
-}
-
-@immutable
-abstract class HomePageEvent {}
-
-final class HomePageEventOnIncrement extends HomePageEvent {}
-
-@immutable
-abstract class HomePageState {}
-
-final class HomePageInitial extends HomePageState {}
-
-final class HomePageData extends HomePageState {
-  final int counter;
-
-  HomePageData(this.counter);
-}
-
-@immutable
-abstract class HomePageSR {}
-
-final class HomePageSRShowDialog extends HomePageSR {
-  final String message;
-
-  HomePageSRShowDialog(this.message);
 }
