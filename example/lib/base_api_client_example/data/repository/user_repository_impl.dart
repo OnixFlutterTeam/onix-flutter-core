@@ -9,6 +9,7 @@ import 'package:onix_flutter_core/core/arch/domain/entity/failure/networking/api
 
 class UserRepositoryImpl implements UserRepository {
   final UserSource _userSource;
+  final _userMapper = UserMapper();
 
   UserRepositoryImpl(this._userSource);
 
@@ -18,9 +19,12 @@ class UserRepositoryImpl implements UserRepository {
       final userResponse = await _userSource.getUsers();
 
       if (userResponse.isSuccess()) {
-        final models = userResponse.data.users;
-
-        final users = models!.map((model) => UserMapper().map(model)).toList();
+        final models = userResponse.data.users ?? List.empty();
+        final users = models
+            .map(
+              (model) => _userMapper.map(model),
+            )
+            .toList();
 
         return Result.success(users);
       } else {
@@ -39,7 +43,9 @@ class UserRepositoryImpl implements UserRepository {
         return Result.error(failure: failure);
       }
     } catch (e) {
-      return Result.error(failure: ApiFailure(ServerFailure.unknown));
+      return Result.error(
+        failure: ApiFailure(ServerFailure.unknown),
+      );
     }
   }
 }
