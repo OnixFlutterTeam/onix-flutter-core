@@ -1,18 +1,14 @@
-import 'package:example/base_bloc_example/bloc/base_bloc_example_screen_bloc.dart';
-import 'package:example/base_cubit_example/cubit/base_cubit_example_screen_cubit.dart';
+import 'package:example/base_bloc_example/base_bloc_example_screen.dart';
+import 'package:example/base_cubit_example/base_cubit_example_screen.dart';
+import 'package:example/base_api_client_example/base_api_client_example.dart';
+import 'package:example/di.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-
-import 'base_bloc_example/base_bloc_example_screen.dart';
-import 'base_cubit_example/base_cubit_example_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  GetIt.I.registerFactory<BaseBlocExampleScreenBloc>(
-      BaseBlocExampleScreenBloc.new);
-  GetIt.I.registerFactory<BaseCubitExampleScreenCubit>(
-      BaseCubitExampleScreenCubit.new);
+  initializeDi(GetIt.I);
 
   runApp(const MyApp());
 }
@@ -34,6 +30,8 @@ class MyApp extends StatelessWidget {
             const BaseCubitExampleScreen(title: 'Base Cubit Example'),
         '/base_bloc_example': (context) =>
             const BaseBlocExampleScreen(title: 'Base BLoC Example'),
+        '/base_api_client_example': (context) =>
+            const BaseApiClientExample(title: 'Base API Client Example'),
       },
     );
   }
@@ -63,6 +61,12 @@ class MyHomePage extends StatelessWidget {
               onPressed: () =>
                   Navigator.pushNamed(context, '/base_bloc_example'),
               child: const Text('Base BLoC'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/base_api_client_example'),
+              child: const Text('Base API Client'),
             ),
           ],
         ),
