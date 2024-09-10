@@ -19,7 +19,6 @@ dependencies:
   get_it: ^7.7.0
   internet_connection_checker: ^2.0.0
   json_annotation: ^4.9.0
-  # TODO REMOVE
   loader_overlay: ^4.0.1
   path_provider: ^2.1.4
   pretty_dio_logger: ^1.4.0
