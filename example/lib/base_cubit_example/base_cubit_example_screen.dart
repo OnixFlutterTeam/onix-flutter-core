@@ -17,6 +17,9 @@ class _BaseCubitExampleScreenState extends BaseCubitState<
     BaseCubitExampleScreenSR,
     BaseCubitExampleScreen> {
   @override
+  BaseCubitExampleScreenCubit createCubit() => BaseCubitExampleScreenCubit();
+
+  @override
   Widget buildWidget(BuildContext context) {
     return srObserver(
       context: context,

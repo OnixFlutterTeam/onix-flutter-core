@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/bloc_builders_mixin.dart';
@@ -43,7 +42,7 @@ abstract class BaseState<S, B extends BaseBloc<dynamic, S, SR>, SR,
 
   B blocOf(BuildContext context) => context.read<B>();
 
-  B createBloc() => GetIt.I.get<B>();
+  B createBloc();
 
   Widget srObserver({
     required BuildContext context,
@@ -61,7 +60,7 @@ abstract class BaseState<S, B extends BaseBloc<dynamic, S, SR>, SR,
 
   void onBlocCreated(BuildContext context, B bloc) {
     bloc.progressStream.listen((event) async {
-      if(context.mounted){
+      if (context.mounted) {
         if (event is DefaultProgressState) {
           if (event.showProgress) {
             context.loaderOverlay.show();

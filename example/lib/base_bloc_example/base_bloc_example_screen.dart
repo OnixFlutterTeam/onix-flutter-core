@@ -2,10 +2,6 @@ import 'package:example/base_bloc_example/bloc/base_bloc_example_screen_bloc.dar
 import 'package:flutter/material.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
 
-
-
-
-
 class BaseBlocExampleScreen extends StatefulWidget {
   const BaseBlocExampleScreen({super.key, required this.title});
 
@@ -17,6 +13,9 @@ class BaseBlocExampleScreen extends StatefulWidget {
 
 class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
     BaseBlocExampleScreenBloc, BaseBlocExampleScreenSR, BaseBlocExampleScreen> {
+  @override
+  BaseBlocExampleScreenBloc createBloc() => BaseBlocExampleScreenBloc();
+
   @override
   Widget buildWidget(BuildContext context) {
     return srObserver(

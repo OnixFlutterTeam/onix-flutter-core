@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/bloc_builders_mixin.dart';
@@ -43,7 +42,7 @@ abstract class BaseCubitState<S, C extends BaseCubit<S, SR>, SR,
 
   C cubitOf(BuildContext context) => context.read<C>();
 
-  C createCubit() => GetIt.I.get<C>();
+  C createCubit();
 
   Widget srObserver({
     required BuildContext context,
