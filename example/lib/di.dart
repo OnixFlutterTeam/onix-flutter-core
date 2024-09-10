@@ -2,10 +2,7 @@ import 'package:example/base_api_client_example/data/log_interceptor.dart';
 import 'package:example/base_bloc_example/bloc/base_bloc_example_screen_bloc.dart';
 import 'package:example/base_cubit_example/cubit/base_cubit_example_screen_cubit.dart';
 import 'package:get_it/get_it.dart';
-import 'package:onix_flutter_core/core/arch/data/remote/dio/api_client.dart';
-import 'package:onix_flutter_core/core/arch/data/remote/dio/dio_client_module.dart';
-import 'package:onix_flutter_core/core/arch/data/remote/dio/dio_request_processor/dio_request_processor.dart';
-import 'package:onix_flutter_core/core/arch/data/remote/dio/params/api_client_params.dart';
+import 'package:onix_flutter_core/onix_flutter_core.dart';
 
 import 'base_api_client_example/data/repository/user_repository_impl.dart';
 import 'base_api_client_example/data/source/user_source.dart';

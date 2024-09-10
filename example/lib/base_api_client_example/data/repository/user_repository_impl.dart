@@ -3,9 +3,7 @@ import 'package:example/base_api_client_example/data/mapper/user_mapper.dart';
 import 'package:example/base_api_client_example/data/source/user_source.dart';
 import 'package:example/base_api_client_example/domain/entity/user_entity.dart';
 import 'package:example/base_api_client_example/domain/repository/user_repository.dart';
-import 'package:onix_flutter_core/core/arch/domain/entity/common/result.dart';
-import 'package:onix_flutter_core/core/arch/data/remote/base/map_common_server_error.dart';
-import 'package:onix_flutter_core/core/arch/domain/entity/failure/networking/api_failure.dart';
+import 'package:onix_flutter_core/onix_flutter_core.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserSource _userSource;

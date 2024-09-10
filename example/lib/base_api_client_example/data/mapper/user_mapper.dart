@@ -4,7 +4,7 @@ import 'package:example/base_api_client_example/data/model/address_model.dart';
 import 'package:example/base_api_client_example/data/model/company_model.dart';
 import 'package:example/base_api_client_example/data/model/user_model.dart';
 import 'package:example/base_api_client_example/domain/entity/user_entity.dart';
-import 'package:onix_flutter_core/core/arch/domain/common/converter/mapper.dart';
+import 'package:onix_flutter_core/onix_flutter_core.dart';
 
 class UserMapper implements Mapper<UserModel, UserEntity> {
   @override

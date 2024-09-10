@@ -1,6 +1,6 @@
 import 'package:example/base_cubit_example/cubit/base_cubit_example_screen_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:onix_flutter_core/core/arch/bloc/base_cubit_state.dart';
+import 'package:onix_flutter_core/onix_flutter_core.dart';
 
 class BaseCubitExampleScreen extends StatefulWidget {
   const BaseCubitExampleScreen({super.key, required this.title});

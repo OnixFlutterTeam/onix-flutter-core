@@ -1,6 +1,10 @@
 import 'package:example/base_bloc_example/bloc/base_bloc_example_screen_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:onix_flutter_core/core/arch/bloc/base_bloc_state.dart';
+import 'package:onix_flutter_core/onix_flutter_core.dart';
+
+
+
+
 
 class BaseBlocExampleScreen extends StatefulWidget {
   const BaseBlocExampleScreen({super.key, required this.title});
