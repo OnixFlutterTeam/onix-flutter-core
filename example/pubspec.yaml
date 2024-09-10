@@ -17,9 +17,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   dio: ^5.7.0
   onix_flutter_core:
-    git:
-      url: https://github.com/OnixFlutterTeam/onix-flutter-core.git
-      ref: feature/base
+    path: ../
 
 dev_dependencies:
   flutter_test:

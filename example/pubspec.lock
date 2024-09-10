@@ -576,11 +576,9 @@ packages:
   onix_flutter_core:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "feature/base"
-      resolved-ref: f22c088fbd56c49b44fde97d8319629e19c6f7f1
-      url: "https://github.com/OnixFlutterTeam/onix-flutter-core.git"
-    source: git
+      path: ".."
+      relative: true
+    source: path
     version: "0.0.1"
   package_config:
     dependency: transitive

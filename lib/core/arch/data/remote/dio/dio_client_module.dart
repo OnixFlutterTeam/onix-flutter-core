@@ -23,7 +23,7 @@ abstract class DioClientModule {
         ),
       );
 
-  DioRequestProcessor makeDioErrorHandler() => kIsWeb
+  DioRequestProcessor makeDioRequestProcessor() => kIsWeb
       ? DioRequestProcessorImpl()
       : DioRequestProcessorImpl(
           connectivity: Connectivity(),

@@ -17,6 +17,9 @@ class UserSourceImpl implements UserSource {
       onResponse: (response) {
         return UserModelList.fromJson(response.data);
       },
+      onCustomError: (code, data){
+
+      }
     );
   }
 }

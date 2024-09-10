@@ -38,7 +38,7 @@ void initializeDi(GetIt getIt) {
 
   // Registering DioRequestProcessor
   getIt.registerLazySingleton<DioRequestProcessor>(
-    dioClientModule.makeDioErrorHandler,
+    dioClientModule.makeDioRequestProcessor,
   );
 
   // Registering UserSource
