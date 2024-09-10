@@ -29,6 +29,12 @@ class _ExampleScreenState extends BaseState<BlocState,
     ExampleScreenBloc, BlocSR, ExampleScreen> {
 ```
 
+Create BLoC instance in `createBloc` function: 
+
+```
+ ExampleScreenBloc createCubit() => ExampleScreenBloc();
+```
+
 Write you widget body in `buildWidget` instead of `build`
 
 ```
