@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// - Toast
 /// - Snack
 /// - Some interaction with the animation
-mixin SingleResultMixin<Event, State, SR> on Bloc<Event, State>
+mixin SingleResultBlocMixin<Event, State, SR> on Bloc<Event, State>
     implements SingleResultProvider<SR>, SingleResultEmitter<SR> {
   @protected
   final StreamController<SR> _srController = StreamController.broadcast();

@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
-import 'package:onix_flutter_core/src/core/arch/bloc/bloc_builders_mixin.dart';
+import 'package:onix_flutter_core/src/core/arch/bloc/mixins/bloc_builders_mixin.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/bloc_typedefs.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/stream_listener.dart';
 import 'package:onix_flutter_core/src/core/arch/domain/entity/progress_state/progress_state.dart';
 
-abstract class BaseCubitState<S, C extends BaseCubit<S, SR>, SR,
+abstract class BaseState<S, B extends BaseBloc<dynamic, S, SR>, SR,
         W extends StatefulWidget> extends State<W>
-    with BlocBuildersMixin<C, S, SR> {
-  bool lazyCubit = false;
-  C? _cubit;
+    with BlocBuildersMixin<B, S, SR> {
+  bool lazyBloc = false;
+  B? _bloc;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<C>(
+    return BlocProvider<B>(
       create: (context) {
-        final cubit = createCubit();
-        onCubitCreated(context, cubit);
-        _cubit = cubit;
-        return cubit;
+        final bloc = createBloc();
+        onBlocCreated(context, bloc);
+        _bloc = bloc;
+        return bloc;
       },
-      lazy: lazyCubit,
+      lazy: lazyBloc,
       child: Builder(
         builder: (context) {
           initParams(context);
@@ -34,15 +34,15 @@ abstract class BaseCubitState<S, C extends BaseCubit<S, SR>, SR,
 
   @override
   void dispose() {
-    if (_cubit != null) {
-      _cubit?.dispose();
+    if (_bloc != null) {
+      _bloc?.dispose();
     }
     super.dispose();
   }
 
-  C cubitOf(BuildContext context) => context.read<C>();
+  B blocOf(BuildContext context) => context.read<B>();
 
-  C createCubit();
+  B createBloc();
 
   Widget srObserver({
     required BuildContext context,
@@ -50,7 +50,7 @@ abstract class BaseCubitState<S, C extends BaseCubit<S, SR>, SR,
     required SingleResultListener<SR> onSR,
   }) {
     return StreamListener<SR>(
-      stream: (_cubit ?? cubitOf(context)).singleResults,
+      stream: (_bloc ?? blocOf(context)).singleResults,
       onData: (data) {
         onSR(context, data);
       },
@@ -58,8 +58,8 @@ abstract class BaseCubitState<S, C extends BaseCubit<S, SR>, SR,
     );
   }
 
-  void onCubitCreated(BuildContext context, C cubit) {
-    cubit.progressStream.listen((event) async {
+  void onBlocCreated(BuildContext context, B bloc) {
+    bloc.progressStream.listen((event) async {
       if (context.mounted) {
         if (event is DefaultProgressState) {
           if (event.showProgress) {

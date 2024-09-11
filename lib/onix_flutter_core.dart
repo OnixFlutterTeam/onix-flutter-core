@@ -1,12 +1,13 @@
 library onix_flutter_core;
 
 //BLoC
-export 'src/core/arch/bloc/base_bloc.dart' show BaseBloc;
-export 'src/core/arch/bloc/base_bloc_state.dart' show BaseState;
+export 'src/core/arch/bloc/base_bloc/base_bloc.dart' show BaseBloc;
+export 'src/core/arch/bloc/base_bloc/base_bloc_state.dart' show BaseState;
 
 //Cubit
-export 'src/core/arch/bloc/base_cubit.dart' show BaseCubit;
-export 'src/core/arch/bloc/base_cubit_state.dart' show BaseCubitState;
+export 'src/core/arch/bloc/base_cubit/base_cubit.dart' show BaseCubit;
+export 'src/core/arch/bloc/base_cubit/base_cubit_state.dart'
+    show BaseCubitState;
 
 //Networking
 export 'src/core/arch/data/remote/dio/dio_request_processor/dio_request_processor.dart'
