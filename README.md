@@ -1,39 +1,114 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+This package contains some base classes designed to improve experience of using BLoC state management and Http networking functionality.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+## Contents
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+* Custom BLoC implementation
+* Custom api client based on Dio
+* Custom error handling technics
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
+## Usage
 
 TODO: List prerequisites and provide or point to information on how to
 start using the package.
 
-## Usage
+### BLoC (Cubit)
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Custom BLoC is a regular BLoC with an additional event type called Single Result. Single Result is designed to call single time function in the UI (like show dialog, navigation, etc.).
 
-```dart
-const like = 'sample';
+Extend you BLoC class from `BaseBloc`:
+
+```
+class ExampleScreenBloc extends BaseBloc<BlocEvent,
+    BlocState, BlocSR>
 ```
 
-## Additional information
+Extend you widget from `BaseState`
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```
+class _ExampleScreenState extends BaseState<BlocState,
+    ExampleScreenBloc, BlocSR, ExampleScreen> {
+```
+
+Create BLoC instance in `createBloc` function: 
+
+```
+ ExampleScreenBloc createBloc() => ExampleScreenBloc();
+```
+
+Write you widget body in `buildWidget` instead of `build`
+
+```
+  @override
+  Widget buildWidget(BuildContext context) {
+  	return Scaffold(...);
+  }
+```
+
+Use integrated widgets to handle Single result events or state:
+
+```
+srObserver(
+	context: context,
+    onSR: (BuildContext context, BlocSR sr) {
+    ...
+    },
+    child: Scaffold(...),
+);
+```
+
+```
+blocBuilder(builder: (BuildContext context, BlocState state) {
+	return MyWidget(...);
+}
+```
+
+### Networking
+
+
+Create a new api client: 
+
+```
+final dioClientModule = _DioClientModule();
+final apiClient = dioClientModule.makeApiClient(
+      ApiClientParams(
+        baseUrl: 'https://jsonplaceholder.typicode.com/',
+        defaultConnectTimeout: 5000,
+        defaultReceiveTimeout: 5000,
+        interceptors: [LogInterceptor()],
+      ),
+    );
+```
+
+Create request processor:
+
+```
+final processor = dioClientModule.makeDioRequestProcessor();
+```
+
+Make a request:
+
+```
+final response = await _dioRequestProcessor.processRequest(
+      onRequest: () => _apiClient.client.get('/users'),
+      onResponse: (Map<String, dynamic> response) {
+        return MyResponse.fromJson(response.data);
+      },
+      onCustomError: (int code, Map<String, dynamic> data){
+        return MyError.fromJson(data);
+      }
+    );
+```
+
+Handle result or error from `DataResponse` class response:
+
+```
+if (response.isSuccess()) {
+	final data = response.data;
+	...
+}
+else{
+	//process and error
+}
+``` 
+
+
