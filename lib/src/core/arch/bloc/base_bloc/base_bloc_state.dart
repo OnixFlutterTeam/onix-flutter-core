@@ -18,9 +18,9 @@ abstract class BaseState<S, B extends BaseBloc<dynamic, S, SR>, SR,
     return BlocProvider<B>(
       create: (context) {
         final bloc = createBloc();
-        onBlocCreated(context, bloc);
         _bloc = bloc;
-        _attachListeners(context, _bloc);
+        onBlocCreated(context, bloc);
+        _attachListeners(context, bloc);
         return bloc;
       },
       lazy: lazyBloc,
@@ -59,35 +59,41 @@ abstract class BaseState<S, B extends BaseBloc<dynamic, S, SR>, SR,
     );
   }
 
-  void onBlocCreated(BuildContext context, B bloc) {
-    bloc.progressStream.listen((event) {
-      if (!context.mounted) return;
-      if (event is DefaultProgressState) {
-        if (event.showProgress) {
-          context.loaderOverlay.show();
-        } else {
-          context.loaderOverlay.hide();
-        }
+  void onBlocCreated(BuildContext context, B bloc) {}
+
+  void onFailure(BuildContext context, B bloc, Failure failure) {}
+
+  void onSR(BuildContext context, B bloc, SR sr) {}
+
+  void onProgress(BuildContext context, B bloc, BaseProgressState progress) {
+    if (progress is DefaultProgressState) {
+      if (progress.showProgress) {
+        context.loaderOverlay.show();
+      } else {
+        context.loaderOverlay.hide();
       }
-    });
+    }
   }
-
-  void onFailure(BuildContext context, Failure failure) {}
-
-  void onSR(BuildContext context, SR sr) {}
-
-  void onProgress(BuildContext context, BaseProgressState progress) {}
 
   // ignore: no-empty-block
   void initParams(BuildContext context) {}
 
   Widget buildWidget(BuildContext context);
 
-  void _attachListeners(BuildContext context, B? bloc) {
-    if (bloc == null) return;
+  void _attachListeners(BuildContext context, B bloc) {
+    bloc.failureStream.listen((failure) {
+      if (!context.mounted) return;
+      onFailure(context, bloc, failure);
+    });
 
-    bloc.failureStream.listen((failure) => onFailure(context, failure));
-    bloc.singleResults.listen((sr) => onSR(context, sr));
-    bloc.progressStream.listen((progress) => onProgress(context, progress));
+    bloc.singleResults.listen((sr) {
+      if (!context.mounted) return;
+      onSR(context, bloc, sr);
+    });
+
+    bloc.progressStream.listen((progress) {
+      if (!context.mounted) return;
+      onProgress(context, bloc, progress);
+    });
   }
 }
