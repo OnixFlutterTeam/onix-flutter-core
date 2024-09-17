@@ -5,7 +5,7 @@ repository: https://github.com/OnixFlutterTeam/onix-flutter-core
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
-  flutter: ">=3.14.0"
+  flutter: ">=3.19.0"
 
 dependencies:
   connectivity_plus: ^6.0.5
@@ -29,8 +29,8 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   build_runner: ^2.4.9
-  freezed: ^2.5.7
   json_serializable: ^6.8.0
+  freezed: ^2.5.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
