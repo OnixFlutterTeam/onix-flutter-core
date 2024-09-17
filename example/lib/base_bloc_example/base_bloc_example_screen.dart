@@ -17,7 +17,11 @@ class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
   BaseBlocExampleScreenBloc createBloc() => BaseBlocExampleScreenBloc();
 
   @override
-  void onSR(BuildContext context, BaseBlocExampleScreenSR sr) {
+  void onSR(
+    BuildContext context,
+    BaseBlocExampleScreenBloc bloc,
+    BaseBlocExampleScreenSR sr,
+  ) {
     if (sr is BaseBlocExampleScreenSRShowDialog) {
       showDialog(
         context: context,
@@ -38,13 +42,21 @@ class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
   }
 
   @override
-  void onFailure(BuildContext context, Failure failure) {
-    print(failure);
+  void onFailure(
+    BuildContext context,
+    BaseBlocExampleScreenBloc bloc,
+    Failure failure,
+  ) {
+    debugPrint(failure.toString());
   }
 
   @override
-  void onProgress(BuildContext context, BaseProgressState progress) {
-    print(progress);
+  void onProgress(
+    BuildContext context,
+    BaseBlocExampleScreenBloc bloc,
+    BaseProgressState progress,
+  ) {
+    debugPrint(progress.toString());
   }
 
   @override
