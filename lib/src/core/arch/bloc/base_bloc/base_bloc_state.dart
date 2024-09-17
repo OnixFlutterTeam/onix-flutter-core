@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
-import 'package:onix_flutter_core/src/core/arch/bloc/mixins/bloc_builders_mixin.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/bloc_typedefs.dart';
+import 'package:onix_flutter_core/src/core/arch/bloc/mixins/bloc_builders_mixin.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/stream_listener.dart';
 import 'package:onix_flutter_core/src/core/arch/domain/entity/progress_state/progress_state.dart';
 
@@ -20,6 +20,7 @@ abstract class BaseState<S, B extends BaseBloc<dynamic, S, SR>, SR,
         final bloc = createBloc();
         onBlocCreated(context, bloc);
         _bloc = bloc;
+        _attachListeners(context, _bloc);
         return bloc;
       },
       lazy: lazyBloc,
@@ -59,21 +60,34 @@ abstract class BaseState<S, B extends BaseBloc<dynamic, S, SR>, SR,
   }
 
   void onBlocCreated(BuildContext context, B bloc) {
-    bloc.progressStream.listen((event) async {
-      if (context.mounted) {
-        if (event is DefaultProgressState) {
-          if (event.showProgress) {
-            context.loaderOverlay.show();
-          } else {
-            context.loaderOverlay.hide();
-          }
+    bloc.progressStream.listen((event) {
+      if (!context.mounted) return;
+      if (event is DefaultProgressState) {
+        if (event.showProgress) {
+          context.loaderOverlay.show();
+        } else {
+          context.loaderOverlay.hide();
         }
       }
     });
   }
 
+  void onFailure(BuildContext context, Failure failure) {}
+
+  void onSR(BuildContext context, SR sr) {}
+
+  void onProgress(BuildContext context, BaseProgressState progress) {}
+
   // ignore: no-empty-block
   void initParams(BuildContext context) {}
 
   Widget buildWidget(BuildContext context);
+
+  void _attachListeners(BuildContext context, B? bloc) {
+    if (bloc == null) return;
+
+    bloc.failureStream.listen((failure) => onFailure(context, failure));
+    bloc.singleResults.listen((sr) => onSR(context, sr));
+    bloc.progressStream.listen((progress) => onProgress(context, progress));
+  }
 }
