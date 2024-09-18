@@ -17,54 +17,11 @@ class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
   BaseBlocExampleScreenBloc createBloc() => BaseBlocExampleScreenBloc();
 
   @override
-  Widget buildWidget(BuildContext context) {
-    return srObserver(
-      context: context,
-      onSR: _onSR,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              blocBuilder(builder: (context, state) {
-                return Text(
-                  '${state is BaseBlocExampleScreenData ? state.counter : 0}',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                );
-              }),
-            ],
-          ),
-        ),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () =>
-                  blocOf(context).add(BaseBlocExampleScreenEventOnIncrement()),
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
-            ),
-            const SizedBox(width: 16),
-            FloatingActionButton(
-              onPressed: () => blocOf(context)
-                  .addSr(BaseBlocExampleScreenSRShowDialog('Hello')),
-              tooltip: 'Show dialog',
-              child: const Icon(Icons.message),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _onSR(BuildContext context, BaseBlocExampleScreenSR sr) {
+  void onSR(
+    BuildContext context,
+    BaseBlocExampleScreenBloc bloc,
+    BaseBlocExampleScreenSR sr,
+  ) {
     if (sr is BaseBlocExampleScreenSRShowDialog) {
       showDialog(
         context: context,
@@ -82,5 +39,67 @@ class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
         },
       );
     }
+  }
+
+  @override
+  void onFailure(
+    BuildContext context,
+    BaseBlocExampleScreenBloc bloc,
+    Failure failure,
+  ) {
+    debugPrint(failure.toString());
+  }
+
+  @override
+  void onProgress(
+    BuildContext context,
+    BaseBlocExampleScreenBloc bloc,
+    BaseProgressState progress,
+  ) {
+    debugPrint(progress.toString());
+  }
+
+  @override
+  Widget buildWidget(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            blocBuilder(builder: (context, state) {
+              return Text(
+                '${state is BaseBlocExampleScreenData ? state.counter : 0}',
+                style: Theme.of(context).textTheme.headlineMedium,
+              );
+            }),
+          ],
+        ),
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () =>
+                blocOf(context).add(BaseBlocExampleScreenEventOnIncrement()),
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () => blocOf(context)
+                .addSr(BaseBlocExampleScreenSRShowDialog('Hello')),
+            tooltip: 'Show dialog',
+            child: const Icon(Icons.message),
+          ),
+        ],
+      ),
+    );
   }
 }

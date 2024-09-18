@@ -85,4 +85,14 @@ class _BaseCubitExampleScreenState extends BaseCubitState<
       );
     }
   }
+
+  @override
+  void onFailure(BuildContext context, Failure failure) {
+    debugPrint(failure.toString());
+  }
+
+  @override
+  void onProgress(BuildContext context, BaseProgressState progress) {
+    debugPrint(progress.toString());
+  }
 }

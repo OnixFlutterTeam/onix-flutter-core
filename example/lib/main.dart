@@ -1,9 +1,10 @@
+import 'package:example/base_api_client_example/base_api_client_example.dart';
 import 'package:example/base_bloc_example/base_bloc_example_screen.dart';
 import 'package:example/base_cubit_example/base_cubit_example_screen.dart';
-import 'package:example/base_api_client_example/base_api_client_example.dart';
 import 'package:example/di.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,21 +19,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return GlobalLoaderOverlay(
+      child: MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const MyHomePage(),
+          '/base_cubit_example': (context) =>
+              const BaseCubitExampleScreen(title: 'Base Cubit Example'),
+          '/base_bloc_example': (context) =>
+              const BaseBlocExampleScreen(title: 'Base BLoC Example'),
+          '/base_api_client_example': (context) =>
+              const BaseApiClientExample(title: 'Base API Client Example'),
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const MyHomePage(),
-        '/base_cubit_example': (context) =>
-            const BaseCubitExampleScreen(title: 'Base Cubit Example'),
-        '/base_bloc_example': (context) =>
-            const BaseBlocExampleScreen(title: 'Base BLoC Example'),
-        '/base_api_client_example': (context) =>
-            const BaseApiClientExample(title: 'Base API Client Example'),
-      },
     );
   }
 }
