@@ -15,7 +15,10 @@ sealed class DataResponse<T> with _$DataResponse {
     int? statusCode,
   ]) = _UndefinedError;
 
-  const factory DataResponse.apiError(error, [int? statusCode]) = _ApiError;
+  const factory DataResponse.apiError(
+    Object error, [
+    int? statusCode,
+  ]) = _ApiError;
 
   const factory DataResponse.notConnected() = _NoInternetConnection;
 

@@ -1,7 +1,6 @@
-
 import 'package:onix_flutter_core/src/core/arch/domain/entity/failure/failure.dart';
 
-class ApiFailure implements FeatureFailure {
+class ApiFailure implements Failure {
   final ServerFailure failure;
   final int? statusCode;
 

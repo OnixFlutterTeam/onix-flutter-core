@@ -2,9 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:onix_flutter_core/src/core/arch/data/remote/base/http_status.dart';
 import 'package:onix_flutter_core/src/core/arch/domain/entity/common/data_response.dart';
 
-typedef OnCustomError<T> = dynamic Function(
-  int code,
-  Map<String, dynamic> response,
+typedef OnCustomError<T> = Object Function(
+  Response<dynamic>? response,
 );
 
 class DioErrorProcessor {
@@ -14,7 +13,6 @@ class DioErrorProcessor {
     DioException e, {
     OnCustomError? onCustomError,
   }) {
-    final responseData = e.response?.data;
     final statusCode = e.response?.statusCode ?? -1;
     if (e.type == DioExceptionType.connectionTimeout ||
         e.type == DioExceptionType.sendTimeout ||
@@ -31,10 +29,8 @@ class DioErrorProcessor {
     final errorHandler = onCustomError;
 
     if (errorHandler != null) {
-      final apiError = errorHandler(statusCode, responseData);
-      if (apiError != null) {
-        return DataResponse<T>.apiError(apiError, statusCode);
-      }
+      final apiError = errorHandler(e.response);
+      return DataResponse<T>.apiError(apiError, statusCode);
     }
 
     return DataResponse<T>.undefinedError(e, statusCode);
