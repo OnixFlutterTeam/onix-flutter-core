@@ -35,4 +35,4 @@ export 'src/core/arch/domain/entity/failure/networking/api_failure.dart';
 export 'src/core/arch/domain/entity/failure/networking/canceled_request_failure.dart'
     show CanceledRequestFailure;
 export 'src/core/arch/domain/entity/progress_state/progress_state.dart'
-    show BaseProgressState;
+    show BaseProgressState, DefaultProgressState;
