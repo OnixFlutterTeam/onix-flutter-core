@@ -4,7 +4,7 @@ import 'package:onix_flutter_core/src/core/arch/domain/entity/common/data_respon
 
 typedef OnCustomError<T> = dynamic Function(
   int code,
-  Map<String, dynamic> response,
+  Response<dynamic>? response,
 );
 
 class DioErrorProcessor {
@@ -14,7 +14,6 @@ class DioErrorProcessor {
     DioException e, {
     OnCustomError? onCustomError,
   }) {
-    final responseData = e.response?.data;
     final statusCode = e.response?.statusCode ?? -1;
     if (e.type == DioExceptionType.connectionTimeout ||
         e.type == DioExceptionType.sendTimeout ||
@@ -31,7 +30,7 @@ class DioErrorProcessor {
     final errorHandler = onCustomError;
 
     if (errorHandler != null) {
-      final apiError = errorHandler(statusCode, responseData);
+      final apiError = errorHandler(statusCode, e.response);
       if (apiError != null) {
         return DataResponse<T>.apiError(apiError, statusCode);
       }

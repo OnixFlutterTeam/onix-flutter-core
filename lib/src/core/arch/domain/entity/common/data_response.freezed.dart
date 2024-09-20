@@ -21,7 +21,8 @@ mixin _$DataResponse<T> {
     required TResult Function(T data) success,
     required TResult Function(Object? errorObject, int? statusCode)
         undefinedError,
-    required TResult Function(dynamic error, int? statusCode) apiError,
+    required TResult Function(Response<dynamic>? error, int? statusCode)
+        apiError,
     required TResult Function() notConnected,
     required TResult Function() unauthorized,
     required TResult Function() tooManyRequests,
@@ -32,7 +33,7 @@ mixin _$DataResponse<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
     TResult? Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult? Function(dynamic error, int? statusCode)? apiError,
+    TResult? Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult? Function()? notConnected,
     TResult? Function()? unauthorized,
     TResult? Function()? tooManyRequests,
@@ -43,7 +44,7 @@ mixin _$DataResponse<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
     TResult Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult Function(dynamic error, int? statusCode)? apiError,
+    TResult Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult Function()? notConnected,
     TResult Function()? unauthorized,
     TResult Function()? tooManyRequests,
@@ -181,7 +182,8 @@ class _$DataResponseSuccessImpl<T> extends _DataResponseSuccess<T> {
     required TResult Function(T data) success,
     required TResult Function(Object? errorObject, int? statusCode)
         undefinedError,
-    required TResult Function(dynamic error, int? statusCode) apiError,
+    required TResult Function(Response<dynamic>? error, int? statusCode)
+        apiError,
     required TResult Function() notConnected,
     required TResult Function() unauthorized,
     required TResult Function() tooManyRequests,
@@ -195,7 +197,7 @@ class _$DataResponseSuccessImpl<T> extends _DataResponseSuccess<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
     TResult? Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult? Function(dynamic error, int? statusCode)? apiError,
+    TResult? Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult? Function()? notConnected,
     TResult? Function()? unauthorized,
     TResult? Function()? tooManyRequests,
@@ -209,7 +211,7 @@ class _$DataResponseSuccessImpl<T> extends _DataResponseSuccess<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
     TResult Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult Function(dynamic error, int? statusCode)? apiError,
+    TResult Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult Function()? notConnected,
     TResult Function()? unauthorized,
     TResult Function()? tooManyRequests,
@@ -363,7 +365,8 @@ class _$UndefinedErrorImpl<T> extends _UndefinedError<T> {
     required TResult Function(T data) success,
     required TResult Function(Object? errorObject, int? statusCode)
         undefinedError,
-    required TResult Function(dynamic error, int? statusCode) apiError,
+    required TResult Function(Response<dynamic>? error, int? statusCode)
+        apiError,
     required TResult Function() notConnected,
     required TResult Function() unauthorized,
     required TResult Function() tooManyRequests,
@@ -377,7 +380,7 @@ class _$UndefinedErrorImpl<T> extends _UndefinedError<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
     TResult? Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult? Function(dynamic error, int? statusCode)? apiError,
+    TResult? Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult? Function()? notConnected,
     TResult? Function()? unauthorized,
     TResult? Function()? tooManyRequests,
@@ -391,7 +394,7 @@ class _$UndefinedErrorImpl<T> extends _UndefinedError<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
     TResult Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult Function(dynamic error, int? statusCode)? apiError,
+    TResult Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult Function()? notConnected,
     TResult Function()? unauthorized,
     TResult Function()? tooManyRequests,
@@ -472,7 +475,7 @@ abstract class _$$ApiErrorImplCopyWith<T, $Res> {
           _$ApiErrorImpl<T> value, $Res Function(_$ApiErrorImpl<T>) then) =
       __$$ApiErrorImplCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({dynamic error, int? statusCode});
+  $Res call({Response<dynamic>? error, int? statusCode});
 }
 
 /// @nodoc
@@ -492,7 +495,10 @@ class __$$ApiErrorImplCopyWithImpl<T, $Res>
     Object? statusCode = freezed,
   }) {
     return _then(_$ApiErrorImpl<T>(
-      freezed == error ? _value.error! : error,
+      freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as Response<dynamic>?,
       freezed == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
@@ -507,7 +513,7 @@ class _$ApiErrorImpl<T> extends _ApiError<T> {
   const _$ApiErrorImpl(this.error, [this.statusCode]) : super._();
 
   @override
-  final dynamic error;
+  final Response<dynamic>? error;
   @override
   final int? statusCode;
 
@@ -521,14 +527,13 @@ class _$ApiErrorImpl<T> extends _ApiError<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApiErrorImpl<T> &&
-            const DeepCollectionEquality().equals(other.error, error) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.statusCode, statusCode) ||
                 other.statusCode == statusCode));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(error), statusCode);
+  int get hashCode => Object.hash(runtimeType, error, statusCode);
 
   /// Create a copy of DataResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -544,7 +549,8 @@ class _$ApiErrorImpl<T> extends _ApiError<T> {
     required TResult Function(T data) success,
     required TResult Function(Object? errorObject, int? statusCode)
         undefinedError,
-    required TResult Function(dynamic error, int? statusCode) apiError,
+    required TResult Function(Response<dynamic>? error, int? statusCode)
+        apiError,
     required TResult Function() notConnected,
     required TResult Function() unauthorized,
     required TResult Function() tooManyRequests,
@@ -558,7 +564,7 @@ class _$ApiErrorImpl<T> extends _ApiError<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
     TResult? Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult? Function(dynamic error, int? statusCode)? apiError,
+    TResult? Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult? Function()? notConnected,
     TResult? Function()? unauthorized,
     TResult? Function()? tooManyRequests,
@@ -572,7 +578,7 @@ class _$ApiErrorImpl<T> extends _ApiError<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
     TResult Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult Function(dynamic error, int? statusCode)? apiError,
+    TResult Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult Function()? notConnected,
     TResult Function()? unauthorized,
     TResult Function()? tooManyRequests,
@@ -633,11 +639,11 @@ class _$ApiErrorImpl<T> extends _ApiError<T> {
 }
 
 abstract class _ApiError<T> extends DataResponse<T> {
-  const factory _ApiError(final dynamic error, [final int? statusCode]) =
-      _$ApiErrorImpl<T>;
+  const factory _ApiError(final Response<dynamic>? error,
+      [final int? statusCode]) = _$ApiErrorImpl<T>;
   const _ApiError._() : super._();
 
-  dynamic get error;
+  Response<dynamic>? get error;
   int? get statusCode;
 
   /// Create a copy of DataResponse
@@ -693,7 +699,8 @@ class _$NoInternetConnectionImpl<T> extends _NoInternetConnection<T> {
     required TResult Function(T data) success,
     required TResult Function(Object? errorObject, int? statusCode)
         undefinedError,
-    required TResult Function(dynamic error, int? statusCode) apiError,
+    required TResult Function(Response<dynamic>? error, int? statusCode)
+        apiError,
     required TResult Function() notConnected,
     required TResult Function() unauthorized,
     required TResult Function() tooManyRequests,
@@ -707,7 +714,7 @@ class _$NoInternetConnectionImpl<T> extends _NoInternetConnection<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
     TResult? Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult? Function(dynamic error, int? statusCode)? apiError,
+    TResult? Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult? Function()? notConnected,
     TResult? Function()? unauthorized,
     TResult? Function()? tooManyRequests,
@@ -721,7 +728,7 @@ class _$NoInternetConnectionImpl<T> extends _NoInternetConnection<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
     TResult Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult Function(dynamic error, int? statusCode)? apiError,
+    TResult Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult Function()? notConnected,
     TResult Function()? unauthorized,
     TResult Function()? tooManyRequests,
@@ -830,7 +837,8 @@ class _$UnauthorizedImpl<T> extends _Unauthorized<T> {
     required TResult Function(T data) success,
     required TResult Function(Object? errorObject, int? statusCode)
         undefinedError,
-    required TResult Function(dynamic error, int? statusCode) apiError,
+    required TResult Function(Response<dynamic>? error, int? statusCode)
+        apiError,
     required TResult Function() notConnected,
     required TResult Function() unauthorized,
     required TResult Function() tooManyRequests,
@@ -844,7 +852,7 @@ class _$UnauthorizedImpl<T> extends _Unauthorized<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
     TResult? Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult? Function(dynamic error, int? statusCode)? apiError,
+    TResult? Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult? Function()? notConnected,
     TResult? Function()? unauthorized,
     TResult? Function()? tooManyRequests,
@@ -858,7 +866,7 @@ class _$UnauthorizedImpl<T> extends _Unauthorized<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
     TResult Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult Function(dynamic error, int? statusCode)? apiError,
+    TResult Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult Function()? notConnected,
     TResult Function()? unauthorized,
     TResult Function()? tooManyRequests,
@@ -967,7 +975,8 @@ class _$TooManyRequestsImpl<T> extends _TooManyRequests<T> {
     required TResult Function(T data) success,
     required TResult Function(Object? errorObject, int? statusCode)
         undefinedError,
-    required TResult Function(dynamic error, int? statusCode) apiError,
+    required TResult Function(Response<dynamic>? error, int? statusCode)
+        apiError,
     required TResult Function() notConnected,
     required TResult Function() unauthorized,
     required TResult Function() tooManyRequests,
@@ -981,7 +990,7 @@ class _$TooManyRequestsImpl<T> extends _TooManyRequests<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
     TResult? Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult? Function(dynamic error, int? statusCode)? apiError,
+    TResult? Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult? Function()? notConnected,
     TResult? Function()? unauthorized,
     TResult? Function()? tooManyRequests,
@@ -995,7 +1004,7 @@ class _$TooManyRequestsImpl<T> extends _TooManyRequests<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
     TResult Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult Function(dynamic error, int? statusCode)? apiError,
+    TResult Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult Function()? notConnected,
     TResult Function()? unauthorized,
     TResult Function()? tooManyRequests,
@@ -1104,7 +1113,8 @@ class _$CanceledRequestImpl<T> extends _CanceledRequest<T> {
     required TResult Function(T data) success,
     required TResult Function(Object? errorObject, int? statusCode)
         undefinedError,
-    required TResult Function(dynamic error, int? statusCode) apiError,
+    required TResult Function(Response<dynamic>? error, int? statusCode)
+        apiError,
     required TResult Function() notConnected,
     required TResult Function() unauthorized,
     required TResult Function() tooManyRequests,
@@ -1118,7 +1128,7 @@ class _$CanceledRequestImpl<T> extends _CanceledRequest<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
     TResult? Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult? Function(dynamic error, int? statusCode)? apiError,
+    TResult? Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult? Function()? notConnected,
     TResult? Function()? unauthorized,
     TResult? Function()? tooManyRequests,
@@ -1132,7 +1142,7 @@ class _$CanceledRequestImpl<T> extends _CanceledRequest<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
     TResult Function(Object? errorObject, int? statusCode)? undefinedError,
-    TResult Function(dynamic error, int? statusCode)? apiError,
+    TResult Function(Response<dynamic>? error, int? statusCode)? apiError,
     TResult Function()? notConnected,
     TResult Function()? unauthorized,
     TResult Function()? tooManyRequests,

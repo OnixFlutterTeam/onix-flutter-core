@@ -3,6 +3,8 @@ import 'package:example/base_api_client_example/data/source/user_source.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
 
 class UserSourceImpl implements UserSource {
+  static const String _users = '/users';
+
   final ApiClient _apiClient;
   final DioRequestProcessor _dioRequestProcessor;
 
@@ -11,13 +13,10 @@ class UserSourceImpl implements UserSource {
   @override
   Future<DataResponse<UserModelList>> getUsers() {
     return _dioRequestProcessor.processRequest(
-      onRequest: () => _apiClient.client.get('/users'),
-      onResponse: (response) {
-        return UserModelList.fromJson(response.data);
-      },
-      onCustomError: (code, data){
-
-      }
-    );
+        onRequest: () => _apiClient.client.get(_users),
+        onResponse: (response) {
+          return UserModelList.fromJson(response.data);
+        },
+        onCustomError: (code, data) {});
   }
 }

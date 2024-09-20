@@ -28,7 +28,7 @@ class UserRepositoryImpl implements UserRepository {
       } else {
         final failure = MapCommonServerError.getServerFailureDetails(
           userResponse,
-          (error, _) {
+          onApiFailure: (error, _) {
             if (error is DefaultApiError) {
               return ApiFailure(
                 ServerFailure.response,
