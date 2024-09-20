@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'data_response.freezed.dart';
@@ -17,7 +16,7 @@ sealed class DataResponse<T> with _$DataResponse {
   ]) = _UndefinedError;
 
   const factory DataResponse.apiError(
-    Response<dynamic>? error, [
+    Object error, [
     int? statusCode,
   ]) = _ApiError;
 
