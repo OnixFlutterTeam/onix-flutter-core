@@ -3,7 +3,6 @@ import 'package:onix_flutter_core/src/core/arch/data/remote/base/http_status.dar
 import 'package:onix_flutter_core/src/core/arch/domain/entity/common/data_response.dart';
 
 typedef OnCustomError<T> = Object Function(
-  int code,
   Response<dynamic>? response,
 );
 
@@ -30,7 +29,7 @@ class DioErrorProcessor {
     final errorHandler = onCustomError;
 
     if (errorHandler != null) {
-      final apiError = errorHandler(statusCode, e.response);
+      final apiError = errorHandler(e.response);
       return DataResponse<T>.apiError(apiError, statusCode);
     }
 

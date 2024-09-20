@@ -7,7 +7,7 @@ import 'package:onix_flutter_core/src/core/arch/domain/entity/failure/networking
 class MapCommonServerError {
   static Failure getServerFailureDetails<T>(
     DataResponse<T> failure, {
-    Failure Function(dynamic, int?)? onApiFailure,
+    Failure Function(Object, int?)? onApiFailure,
   }) {
     try {
       return failure.maybeWhen(
@@ -37,4 +37,6 @@ class MapCommonServerError {
       return ApiExceptionFailure(message: e.toString());
     }
   }
+
+  const MapCommonServerError._();
 }

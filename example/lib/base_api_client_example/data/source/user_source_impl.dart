@@ -18,8 +18,8 @@ class UserSourceImpl implements UserSource {
         onResponse: (response) {
           return UserModelList.fromJson(response.data);
         },
-        onCustomError: (code, data) {
-          return DefaultApiError(message: data?.data.toString());
+        onCustomError: (response) {
+          return DefaultApiError(message: response?.data.toString());
         });
   }
 }
