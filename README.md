@@ -136,12 +136,12 @@ Create a new api client:
 
 final dioClientModule = _DioClientModule();
 final apiClient = dioClientModule.makeApiClient(
-ApiClientParams(
-baseUrl: 'https://jsonplaceholder.typicode.com/',
-defaultConnectTimeout: 5000,
-defaultReceiveTimeout: 5000,
-interceptors: [LogInterceptor()],
-),
+    ApiClientParams(
+    baseUrl: 'https://jsonplaceholder.typicode.com/',
+    defaultConnectTimeout: 5000,
+    defaultReceiveTimeout: 5000,
+    interceptors: [LogInterceptor()],
+    ),
 );
 
 ```
@@ -159,11 +159,11 @@ Make a request:
 ```
 
 onCustomError: (response) {
-final responseType = response?.requestOptions.responseType;
-if (responseType == ResponseType.json) {
-return MyResponse.fromJson(response.data);
-}
-return MyError.unknownError();
+    final responseType = response?.requestOptions.responseType;
+     if (responseType == ResponseType.json) {
+        return MyResponse.fromJson(response.data);
+    }
+    return MyError.unknownError();
 }
 
 ```
@@ -173,11 +173,11 @@ Handle result or error from `DataResponse` class response:
 ```
 
 if (response.isSuccess()) {
-final data = response.data;
-...
+    final data = response.data;
+    ...
 }
 else{
-// process and error
+    // process and error
 }
 
 ``` 
