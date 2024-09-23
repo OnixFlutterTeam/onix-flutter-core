@@ -115,7 +115,7 @@ The `blocConsumer` exposes a builder and listener in order react to new states:
 ```
 blocConsumer(
       listener: (context, state) => print(state),
-      builder: (context, state) => Text(...),
+      builder: (context, state) => MyWidget(...),
       listenWhen: (prev, curr) => prev != curr,
       buildWhen: (prev, curr) => prev != curr,
 )
