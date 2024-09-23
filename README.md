@@ -106,7 +106,7 @@ The `blocListener` method is used to respond to changes in bloc state:
 blocListener(
       listener: (context, state) => print(state),
       listenWhen: (prev, curr) => prev != curr,
-      child: Text(...),
+      child: MyWidget(...),
 )      
 ```
 
