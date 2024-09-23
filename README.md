@@ -1,4 +1,5 @@
-This package contains some base classes designed to improve experience of using BLoC state management and Http networking functionality.
+This package contains some base classes designed to improve experience of using BLoC state
+management and Http networking functionality.
 
 ## Contents
 
@@ -13,7 +14,8 @@ start using the package.
 
 ### BLoC (Cubit)
 
-Custom BLoC is a regular BLoC with an additional event type called Single Result. Single Result is designed to call single time function in the UI (like show dialog, navigation, etc.).
+Custom BLoC is a regular BLoC with an additional event type called Single Result. Single Result is
+designed to call single time function in the UI (like show dialog, navigation, etc.).
 
 Extend you BLoC class from `BaseBloc`:
 
@@ -29,7 +31,7 @@ class _ExampleScreenState extends BaseState<BlocState,
     ExampleScreenBloc, BlocSR, ExampleScreen> {
 ```
 
-Create BLoC instance in `createBloc` function: 
+Create BLoC instance in `createBloc` function:
 
 ```
  ExampleScreenBloc createBloc() => ExampleScreenBloc();
@@ -56,59 +58,103 @@ srObserver(
 );
 ```
 
+or you can override the onSR method:
+
+```
+@override
+void onSR(
+  BuildContext context,
+  ExambleBloc bloc,
+  BlocSR sr,
+) {
+  ...
+}
+```
+
+It is also possible to override the onFailure method to handle failure objects
+
+```
+@override
+void onFailure(
+  BuildContext context,
+  ExampleBloc bloc,
+  Failure failure,
+) {
+  ...
+}
+```
+
+and even onProgress to implement custom progress state behaviour
+
+```
+@override
+void onProgress(
+  BuildContext context,
+  ExampleBloc bloc,
+  BaseProgressState progress,
+) {
+  ...
+}
+```
+
 ```
 blocBuilder(builder: (BuildContext context, BlocState state) {
-	return MyWidget(...);
+return MyWidget(...);
 }
 ```
 
 ### Networking
 
-
-Create a new api client: 
+Create a new api client:
 
 ```
+
 final dioClientModule = _DioClientModule();
 final apiClient = dioClientModule.makeApiClient(
-      ApiClientParams(
-        baseUrl: 'https://jsonplaceholder.typicode.com/',
-        defaultConnectTimeout: 5000,
-        defaultReceiveTimeout: 5000,
-        interceptors: [LogInterceptor()],
-      ),
-    );
+ApiClientParams(
+baseUrl: 'https://jsonplaceholder.typicode.com/',
+defaultConnectTimeout: 5000,
+defaultReceiveTimeout: 5000,
+interceptors: [LogInterceptor()],
+),
+);
+
 ```
 
 Create request processor:
 
 ```
+
 final processor = dioClientModule.makeDioRequestProcessor();
+
 ```
 
 Make a request:
 
 ```
-final response = await _dioRequestProcessor.processRequest(
-      onRequest: () => _apiClient.client.get('/users'),
-      onResponse: (Map<String, dynamic> response) {
-        return MyResponse.fromJson(response.data);
-      },
-      onCustomError: (int code, Map<String, dynamic> data){
-        return MyError.fromJson(data);
-      }
-    );
+
+onCustomError: (response) {
+final responseType = response?.requestOptions.responseType;
+if (responseType == ResponseType.json) {
+return MyResponse.fromJson(response.data);
+}
+return MyError.unknownError();
+}
+
 ```
 
 Handle result or error from `DataResponse` class response:
 
 ```
+
 if (response.isSuccess()) {
-	final data = response.data;
-	...
+final data = response.data;
+...
 }
 else{
-	//process and error
+// process and error
 }
+
 ``` 
 
 
