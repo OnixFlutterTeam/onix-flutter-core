@@ -50,7 +50,7 @@ Use integrated widgets to handle Single result events or state:
 
 ```
 srObserver(
-	context: context,
+    context: context,
     onSR: (BuildContext context, BlocSR sr) {
     ...
     },
@@ -175,8 +175,7 @@ Handle result or error from `DataResponse` class response:
 if (response.isSuccess()) {
     final data = response.data;
     ...
-}
-else{
+} else {
     // process and error
 }
 
