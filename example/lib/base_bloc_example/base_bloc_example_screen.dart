@@ -73,12 +73,14 @@ class _BaseBlocExampleScreenState extends BaseState<BaseBlocExampleScreenState,
             const Text(
               'You have pushed the button this many times:',
             ),
-            blocBuilder(builder: (context, state) {
-              return Text(
-                '${state is BaseBlocExampleScreenData ? state.counter : 0}',
-                style: Theme.of(context).textTheme.headlineMedium,
-              );
-            }),
+            blocBuilder(
+              builder: (context, state) {
+                return Text(
+                  '${state is BaseBlocExampleScreenData ? state.counter : 0}',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
+              },
+            ),
           ],
         ),
       ),

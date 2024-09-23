@@ -71,7 +71,7 @@ void onSR(
 }
 ```
 
-It is also possible to override the onFailure method to handle failure objects
+It is also possible to override the onFailure method to handle failure objects:
 
 ```
 @override
@@ -84,7 +84,7 @@ void onFailure(
 }
 ```
 
-and even onProgress to implement custom progress state behaviour
+and even onProgress to implement custom progress state behaviour:
 
 ```
 @override
@@ -97,11 +97,36 @@ void onProgress(
 }
 ```
 
+The `blocBuilder` method is used to create a widget in response to new states:
+
 ```
-blocBuilder(builder: (BuildContext context, BlocState state) {
-return MyWidget(...);
+blocBuilder(
+    builder: (BuildContext context, BlocState state) => MyWidget(...),
 }
 ```
+
+The `blocListener` method is used to respond to changes in bloc state:
+
+```
+blocListener(
+      listener: (context, state) => Text(...),
+      listenWhen: (prev, curr) => prev != curr,
+)      
+```
+
+The `blocConsumer` exposes a builder and listener in order react to new states:
+
+```
+blocConsumer(
+      listener: (context, state) => print(state),
+      builder: (context, state) => Text(...),
+      listenWhen: (prev, curr) => prev != curr,
+      buildWhen: (prev, curr) => prev != curr,
+)
+```
+
+You can also use the `BlocBuilder`, `BlocListener`, `BlocConsumer` from the `flutter_bloc` package
+without any restrictions
 
 ### Networking
 
