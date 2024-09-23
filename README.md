@@ -7,11 +7,6 @@ management and Http networking functionality.
 * Custom api client based on Dio
 * Custom error handling technics
 
-## Usage
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
 ### BLoC (Cubit)
 
 Custom BLoC is a regular BLoC with an additional event type called Single Result. Single Result is
@@ -126,8 +121,8 @@ blocConsumer(
 )
 ```
 
-You can also use the `BlocBuilder`, `BlocListener`, `BlocConsumer` from the `flutter_bloc` package
-without any restrictions
+You can also use the widget classes `BlocBuilder`, `BlocListener`, `BlocConsumer` from
+the `flutter_bloc` package without any restrictions
 
 ### Networking
 
