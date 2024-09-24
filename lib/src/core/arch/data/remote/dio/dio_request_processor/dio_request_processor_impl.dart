@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:onix_flutter_core/src/core/arch/data/remote/dio/dio_request_processor/dio_request_processor.dart';
 import 'package:onix_flutter_core/src/core/arch/data/remote/error/dio_error_processor.dart';

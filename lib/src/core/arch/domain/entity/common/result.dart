@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:onix_flutter_core/src/core/arch/domain/entity/failure/failure.dart';
 
-
 part 'result.freezed.dart';
 
 @freezed

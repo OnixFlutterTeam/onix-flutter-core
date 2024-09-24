@@ -1,4 +1,3 @@
-
 import 'package:onix_flutter_core/src/core/arch/data/remote/dio/interceptor/cache_interceptor.dart';
 
 abstract class BaseApiClient<T> {
