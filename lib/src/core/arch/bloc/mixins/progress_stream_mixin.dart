@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:onix_flutter_core/src/core/arch/domain/entity/progress_state/progress_state.dart';
 
 mixin class ProgressStreamMixin {

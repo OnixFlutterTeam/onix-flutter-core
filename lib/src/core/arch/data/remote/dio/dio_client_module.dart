@@ -1,4 +1,3 @@
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -8,7 +7,6 @@ import 'package:onix_flutter_core/src/core/arch/data/remote/dio/api_client.dart'
 import 'package:onix_flutter_core/src/core/arch/data/remote/dio/dio_request_processor/dio_request_processor.dart';
 import 'package:onix_flutter_core/src/core/arch/data/remote/dio/dio_request_processor/dio_request_processor_impl.dart';
 import 'package:onix_flutter_core/src/core/arch/data/remote/dio/params/api_client_params.dart';
-
 
 abstract class DioClientModule {
   ApiClient makeApiClient(ApiClientParams params) => ApiClient(

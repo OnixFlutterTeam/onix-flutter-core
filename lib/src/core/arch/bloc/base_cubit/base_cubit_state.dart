@@ -5,7 +5,6 @@ import 'package:onix_flutter_core/onix_flutter_core.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/bloc_typedefs.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/mixins/bloc_builders_mixin.dart';
 import 'package:onix_flutter_core/src/core/arch/bloc/stream_listener.dart';
-import 'package:onix_flutter_core/src/core/arch/domain/entity/progress_state/progress_state.dart';
 
 abstract class BaseCubitState<S, C extends BaseCubit<S, SR>, SR,
         W extends StatefulWidget> extends State<W>

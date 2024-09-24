@@ -35,7 +35,7 @@ class LogInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    if(kDebugMode){
+    if (kDebugMode) {
       print('LogInterceptor::Error: ${err.error}');
     }
 

@@ -44,7 +44,7 @@ class ApiClient implements BaseApiClient<Dio> {
 
   @override
   void attachInterceptors() {
-    if(_interceptors.isNotEmpty){
+    if (_interceptors.isNotEmpty) {
       client.interceptors.clear();
       client.interceptors.addAll(_interceptors);
     }
