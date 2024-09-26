@@ -7,11 +7,7 @@ import 'package:onix_flutter_core/src/data/remote/connection_checker/connection_
 import 'package:onix_flutter_core/src/data/remote/connection_checker/connectivity_ext.dart';
 
 class ConnectionCheckerImpl implements ConnectionChecker {
-  final Connectivity _connectivity = Connectivity();
-
   static final ConnectionCheckerImpl _instance = ConnectionCheckerImpl._();
-
-  ConnectionCheckerImpl._();
 
   factory ConnectionCheckerImpl.createInstance({
     List<ConnectionOption> options = const [],
@@ -24,17 +20,24 @@ class ConnectionCheckerImpl implements ConnectionChecker {
     return _instance;
   }
 
+  ConnectionCheckerImpl._();
+
+  final Connectivity _connectivity = Connectivity();
+
   List<ConnectionOption> _currentOptions = [];
 
   final List<ConnectionOption> _defaultOptions = [
     ConnectionOption(
-      uri: Uri.parse('https://google.com/'),
+      uri: Uri.parse('https://one.one.one.one'),
     ),
     ConnectionOption(
-      uri: Uri.parse('https://apple.com/'),
+      uri: Uri.parse('https://icanhazip.com'),
     ),
     ConnectionOption(
       uri: Uri.parse('https://jsonplaceholder.typicode.com/todos/1'),
+    ),
+    ConnectionOption(
+      uri: Uri.parse('https://reqres.in/api/users/1'),
     ),
   ];
 
@@ -98,8 +101,8 @@ class ConnectionOption {
 
   const ConnectionOption({
     required this.uri,
-    this.connectTimeout = const Duration(seconds: 30),
-    this.receiveTimeout = const Duration(seconds: 30),
+    this.connectTimeout = const Duration(seconds: 3),
+    this.receiveTimeout = const Duration(seconds: 3),
     this.headers = const {},
   });
 

@@ -16,7 +16,6 @@ class UserRepositoryImpl implements UserRepository {
   Future<Result<List<UserEntity>>> getUsers() async {
     try {
       final userResponse = await _userSource.getUsers();
-
       if (userResponse.isSuccess()) {
         final models = userResponse.data.users ?? List.empty();
         final users = models
