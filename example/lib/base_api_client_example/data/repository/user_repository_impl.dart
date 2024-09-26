@@ -4,6 +4,7 @@ import 'package:example/base_api_client_example/data/source/user_source.dart';
 import 'package:example/base_api_client_example/domain/entity/user_entity.dart';
 import 'package:example/base_api_client_example/domain/repository/user_repository.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
+import 'package:onix_flutter_core_models/onix_flutter_core_models.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserSource _userSource;
