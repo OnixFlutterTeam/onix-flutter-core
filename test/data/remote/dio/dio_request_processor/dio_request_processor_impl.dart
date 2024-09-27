@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
+import 'package:test/test.dart';
 
 import 'dio_request_processor_impl.mocks.dart';
 
