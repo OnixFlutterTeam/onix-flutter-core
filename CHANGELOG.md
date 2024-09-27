@@ -1,3 +1,8 @@
+## 0.0.4
+
+* Moved BaseBloc and BaseCubit to a separate package. Moved Failure interface to a separate
+  package
+
 ## 0.0.3
 
 * Code cleanup
