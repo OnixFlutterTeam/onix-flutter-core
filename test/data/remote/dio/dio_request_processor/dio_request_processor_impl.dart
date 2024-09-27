@@ -1,8 +1,10 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:onix_flutter_core/onix_flutter_core.dart';
+import 'package:onix_flutter_core/src/data/remote/connection_checker/connection_checker_impl.dart';
 import 'package:test/test.dart';
 
 import 'dio_request_processor_impl.mocks.dart';
@@ -32,7 +34,7 @@ const mockedException = _MockedException();
 
 @GenerateNiceMocks([
   MockSpec<Connectivity>(),
-  MockSpec<ConnectionChecker>(),
+  MockSpec<InternetConnection>(),
 ])
 void main() {
   group('DataResponse error tests', () {
@@ -444,13 +446,18 @@ void main() {
   group('Connectivity && InternetConnectionChecker tests', () {
     late DioRequestProcessor requestProcessor;
     late Connectivity connectivity;
-    late ConnectionChecker internetConnectionChecker;
+    late ConnectionChecker checker;
+    late InternetConnection internetConnection;
 
     setUp(() {
       connectivity = MockConnectivity();
-      internetConnectionChecker = MockConnectionChecker();
+      internetConnection = MockInternetConnection();
+      checker = ConnectionCheckerImpl(
+        connection: internetConnection,
+        connectivity: connectivity,
+      );
       requestProcessor = DioRequestProcessorImpl(
-        internetConnectionChecker: internetConnectionChecker,
+        internetConnectionChecker: checker,
       );
     });
 
@@ -461,7 +468,7 @@ void main() {
         (_) async => [ConnectivityResult.none],
       );
 
-      when(internetConnectionChecker.hasConnection()).thenAnswer(
+      when(checker.hasConnection()).thenAnswer(
         (_) async => false,
       );
 
@@ -491,7 +498,7 @@ void main() {
         (_) async => [ConnectivityResult.mobile],
       );
 
-      when(internetConnectionChecker.hasConnection()).thenAnswer(
+      when(checker.hasConnection()).thenAnswer(
         (_) async => true,
       );
 

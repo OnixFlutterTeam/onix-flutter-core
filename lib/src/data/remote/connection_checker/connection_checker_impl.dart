@@ -3,11 +3,11 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import 'package:onix_flutter_core/onix_flutter_core.dart';
 import 'package:onix_flutter_core/src/data/remote/connection_checker/connectivity_ext.dart';
 
-class ConnectivityCheckerImpl implements ConnectionChecker {
+class ConnectionCheckerImpl implements ConnectionChecker {
   final InternetConnection _connection;
   final Connectivity _connectivity;
 
-  const ConnectivityCheckerImpl({
+  const ConnectionCheckerImpl({
     required InternetConnection connection,
     required Connectivity connectivity,
   })  : _connection = connection,

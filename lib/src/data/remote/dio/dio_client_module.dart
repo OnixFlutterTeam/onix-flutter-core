@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:onix_flutter_core/src/data/remote/base/base_api_client.dart';
-import 'package:onix_flutter_core/src/data/remote/connection_checker/connectivity_checker_impl.dart';
+import 'package:onix_flutter_core/src/data/remote/connection_checker/connection_checker_impl.dart';
 import 'package:onix_flutter_core/src/data/remote/dio/api_client.dart';
 import 'package:onix_flutter_core/src/data/remote/dio/dio_request_processor/dio_request_processor.dart';
 import 'package:onix_flutter_core/src/data/remote/dio/dio_request_processor/dio_request_processor_impl.dart';
@@ -27,7 +27,7 @@ abstract class DioClientModule {
   DioRequestProcessor makeDioRequestProcessor() => kIsWeb
       ? DioRequestProcessorImpl()
       : DioRequestProcessorImpl(
-          internetConnectionChecker: ConnectivityCheckerImpl(
+          internetConnectionChecker: ConnectionCheckerImpl(
             connection: InternetConnection(),
             connectivity: Connectivity(),
           ),
