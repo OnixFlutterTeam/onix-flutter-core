@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Added unit tests for the BasePreferences class
+
 ## 0.0.4
 
 * Moved BaseBloc and BaseCubit to a separate package. Moved Failure interface to a separate
