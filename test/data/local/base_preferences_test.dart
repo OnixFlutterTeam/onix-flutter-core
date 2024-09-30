@@ -22,10 +22,7 @@ void main() {
 
       test('Get with valid String key. Return correct String value', () async {
         final result = await basePrefs.get('testString', 'defaultValue');
-        final defaultResult =
-            await basePrefs.get('testString1', 'defaultValue');
         expect(result, equals('mockedStringData'));
-        expect(defaultResult, equals('defaultValue'));
       });
 
       test('Get with invalid String key. Return default String value',
@@ -39,7 +36,7 @@ void main() {
         expect(result, equals(true));
       });
 
-      test('Get with invalid Bool key. Return correct Bool value', () async {
+      test('Get with invalid Bool key. Return default Bool value', () async {
         final result = await basePrefs.get('testBool1', false);
         expect(result, equals(false));
       });
@@ -49,7 +46,7 @@ void main() {
         expect(result, equals(1));
       });
 
-      test('Get with invalid Int key. Return correct Int value', () async {
+      test('Get with invalid Int key. Return default Int value', () async {
         final defaultResult = await basePrefs.get('testInt1', 0);
         expect(defaultResult, equals(0));
       });
@@ -59,20 +56,21 @@ void main() {
         expect(result, equals(1.0));
       });
 
-      test('Get with invalid Double key. Return correct Double value',
+      test('Get with invalid Double key. Return default Double value',
           () async {
         final defaultResult = await basePrefs.get('testDouble1', 0.0);
         expect(defaultResult, equals(0.0));
       });
 
-      test('String List<int>. Get result, get default value', () async {
-        final result = await basePrefs.get('testListString', ['f']);
-        await basePrefs.get('testListString1', ['default']);
+      test('Get with valid List<String>. Return correct List<String> value',
+          () async {
+        final result = await basePrefs.get('testListString', ['a', 'b', 'c']);
+        await basePrefs.get('testListString', ['default']);
         expect(result, equals(['a', 'b', 'c']));
       });
 
       test(
-          'Get with invalid List<String> key. Return correct List<String> value',
+          'Get with invalid List<String> key. Return default List<String> value',
           () async {
         final result = await basePrefs.get('testListString1', ['default']);
         expect(result, equals(['default']));
@@ -85,7 +83,7 @@ void main() {
     },
   );
 
-  group('Unit tests for the get method', () {
+  group('Unit tests for the put method', () {
     setUpAll(() {
       SharedPreferences.setMockInitialValues(_initialData);
     });
