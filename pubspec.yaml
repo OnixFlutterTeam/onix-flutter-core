@@ -29,5 +29,5 @@ dev_dependencies:
   freezed: ^2.5.2
   mockito: ^5.4.4
   test: ^1.25.7
-  connectivity_plus_platform_interface: ^2.0.1
+#  connectivity_plus_platform_interface: ^2.0.1
 

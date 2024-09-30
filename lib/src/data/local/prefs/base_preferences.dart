@@ -3,32 +3,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 class BasePreferences {
   Future<T> get<T>(String key, T defaultValue) async {
     final prefs = await SharedPreferences.getInstance();
-    T result;
+    T? result;
 
     switch (defaultValue.runtimeType) {
       case const (String):
-        final value = prefs.getString(key) as T?;
-        result = value ?? defaultValue;
+        result = prefs.getString(key) as T?;
       case const (bool):
-        final value = prefs.getBool(key) as T?;
-        result = value ?? defaultValue;
-      case const (double):
-        final value = prefs.getDouble(key) as T?;
-        result = value ?? defaultValue;
+        result = prefs.getBool(key) as T?;
       case const (int):
-        final value = prefs.getInt(key) as T?;
-        result = value ?? defaultValue;
+        result = prefs.getInt(key) as T?;
+      case const (double):
+        result = prefs.getDouble(key) as T?;
       case const (List<String>):
-        final value = prefs.getStringList(key) as T?;
-        result = value ?? defaultValue;
-      default:
-        return defaultValue;
+        result = prefs.getStringList(key) as T?;
     }
-    return result;
+    return result ?? defaultValue;
   }
 
   Future<void> put<T>(String key, T value) async {
     final prefs = await SharedPreferences.getInstance();
+
     switch (value.runtimeType) {
       case const (String):
         await prefs.setString(key, value as String);
