@@ -7,7 +7,7 @@ import 'package:onix_flutter_core/onix_flutter_core.dart';
 import 'package:onix_flutter_core/src/data/remote/connection_checker/connection_checker_impl.dart';
 import 'package:test/test.dart';
 
-import 'dio_request_processor_impl.mocks.dart';
+import 'dio_request_processor_impl_test.mocks.dart';
 
 class _MockedException implements Exception {
   const _MockedException();
