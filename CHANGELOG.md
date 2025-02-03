@@ -1,3 +1,7 @@
+## 0.0.6-beta.4
+
+* Added stacktrace to dio error
+
 ## 0.0.6-beta.3
 
 * Added function to update base client url

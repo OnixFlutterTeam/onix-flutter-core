@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:onix_flutter_core/src/data/remote/base/connection_checker.dart';
 import 'package:onix_flutter_core/src/data/remote/base/processor/error_processor.dart';

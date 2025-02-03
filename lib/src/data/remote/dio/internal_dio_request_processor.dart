@@ -1,11 +1,12 @@
 import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:onix_flutter_core/src/data/remote/base/connection_checker.dart';
 import 'package:onix_flutter_core/src/data/remote/base/processor/error_processor.dart';
 import 'package:onix_flutter_core/src/data/remote/base/processor/request_processor.dart';
-import 'package:onix_flutter_core/src/data/remote/base/connection_checker.dart';
-import 'package:onix_flutter_core/src/data/remote/connection_checker/always_have_connection.dart';
 import 'package:onix_flutter_core/src/data/remote/base/retry_policy.dart';
+import 'package:onix_flutter_core/src/data/remote/connection_checker/always_have_connection.dart';
 import 'package:onix_flutter_core/src/domain/entity/common/data_response.dart';
 import 'package:retry/retry.dart';
 
@@ -78,7 +79,11 @@ class InternalDioRequestProcessor extends RequestProcessor {
         print(trace);
       }
 
-      return DataResponse.undefinedError(e);
+      return DataResponse.undefinedError(
+        e,
+        -1,
+        trace,
+      );
     }
   }
 

@@ -34,9 +34,15 @@ class InternalDioErrorProcessor implements ErrorProcessor {
         );
         return DataResponse<T>.apiError(apiError, statusCode);
       }
-      return DataResponse<T>.undefinedError(e, statusCode);
+      return DataResponse<T>.undefinedError(
+        e,
+        statusCode,
+      );
     }
 
-    return DataResponse<T>.undefinedError(e, -1);
+    return DataResponse<T>.undefinedError(
+      e,
+      -1,
+    );
   }
 }
