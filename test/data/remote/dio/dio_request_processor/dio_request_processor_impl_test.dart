@@ -443,7 +443,7 @@ void main() {
         return Future<Response<String>>.value(
           Response(
             requestOptions: RequestOptions(),
-            statusCode: HttpStatus.kCodeSuccess200,
+            statusCode: HttpStatus.success,
             data: mockedData,
           ),
         );
@@ -500,7 +500,7 @@ void main() {
         return Future<Response<String>>.value(
           Response(
             requestOptions: RequestOptions(),
-            statusCode: HttpStatus.kCodeSuccess200,
+            statusCode: HttpStatus.success,
             data: mockedData,
           ),
         );
@@ -530,7 +530,7 @@ void main() {
         return Future<Response<String>>.value(
           Response(
             requestOptions: RequestOptions(),
-            statusCode: HttpStatus.kCodeSuccess200,
+            statusCode: HttpStatus.success,
             data: mockedData,
           ),
         );

@@ -43,5 +43,4 @@ abstract class DioClientModule {
         connectionChecker: (kIsWeb) ? null : connectionChecker,
         onCustomError: customErrorParser,
       );
-
 }

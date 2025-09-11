@@ -10,10 +10,8 @@ export 'src/data/remote/base/processor/error_processor.dart'
     show ErrorProcessor, OnCustomError;
 export 'src/data/remote/base/processor/request_processor.dart'
     show RequestProcessor, OnRequest, OnParse;
-export 'src/data/remote/base/retry_policy.dart'
-    show RetryPolicy;
-export 'src/data/remote/base/server_error_mapper.dart'
-    show ServerErrorMapper;
+export 'src/data/remote/base/retry_policy.dart' show RetryPolicy;
+export 'src/data/remote/base/server_error_mapper.dart' show ServerErrorMapper;
 export 'src/data/remote/connection_checker/always_have_connection.dart'
     show AlwaysHaveConnection;
 export 'src/data/remote/connection_checker/mobile_connection_checker.dart'
